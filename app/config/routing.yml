@@ -1,0 +1,7 @@
+meldon_catalog:
+    resource: "@MeldonCatalogBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

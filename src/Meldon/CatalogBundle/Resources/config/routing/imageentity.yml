@@ -1,0 +1,24 @@
+img_index:
+    path:     /
+    defaults: { _controller: "MeldonCatalogBundle:imageEntity:index" }
+    methods:  GET
+
+img_show:
+    path:     /{id}/show
+    defaults: { _controller: "MeldonCatalogBundle:imageEntity:show" }
+    methods:  GET
+
+img_new:
+    path:     /new
+    defaults: { _controller: "MeldonCatalogBundle:imageEntity:new" }
+    methods:  [GET, POST]
+
+img_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MeldonCatalogBundle:imageEntity:edit" }
+    methods:  [GET, POST]
+
+img_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MeldonCatalogBundle:imageEntity:delete" }
+    methods:  DELETE

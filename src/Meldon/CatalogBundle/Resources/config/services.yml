@@ -1,0 +1,4 @@
+services:
+#    meldon_catalog.example:
+#        class: Meldon\CatalogBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

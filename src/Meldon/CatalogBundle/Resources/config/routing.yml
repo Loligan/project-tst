@@ -1,0 +1,21 @@
+meldon_catalog_category:
+    resource: "@MeldonCatalogBundle/Resources/config/routing/categoryentity.yml"
+    prefix:   /category
+
+meldon_catalog_item:
+    resource: "@MeldonCatalogBundle/Resources/config/routing/itementity.yml"
+    prefix:   /item
+
+meldon_catalog_parameter:
+    resource: "@MeldonCatalogBundle/Resources/config/routing/parameterentity.yml"
+    prefix:   /param
+
+meldon_catalog_image:
+    resource: "@MeldonCatalogBundle/Resources/config/routing/imageentity.yml"
+    prefix:   /img
+
+
+
+meldon_catalog_homepage:
+    path:     /
+    defaults: { _controller: MeldonCatalogBundle:Default:index }

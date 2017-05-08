@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Imageentities list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Issmall</th>
+                <th>Ismain</th>
+                <th>Item</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for imageEntity in imageEntities %}
+            <tr>
+                <td><a href="{{ path('img_show', { 'id': imageEntity.id }) }}">{{ imageEntity.id }}</a></td>
+                <td>{% if imageEntity.isSmall %}Yes{% else %}No{% endif %}</td>
+                <td>{% if imageEntity.isMain %}Yes{% else %}No{% endif %}</td>
+                <td>{{ imageEntity.itemEntity }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('img_show', { 'id': imageEntity.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('img_edit', { 'id': imageEntity.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('img_new') }}">Create a new imageEntity</a>
+        </li>
+    </ul>
+{% endblock %}

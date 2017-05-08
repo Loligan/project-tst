@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Parameterentities list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Typevalue</th>
+                <th>Ismain</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for parameterEntity in parameterEntities %}
+            <tr>
+                <td><a href="{{ path('param_show', { 'id': parameterEntity.id }) }}">{{ parameterEntity.id }}</a></td>
+                <td>{{ parameterEntity.name }}</td>
+                <td>{{ parameterEntity.typeValue }}</td>
+                <td>{% if parameterEntity.isMain %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('param_show', { 'id': parameterEntity.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('param_edit', { 'id': parameterEntity.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('param_new') }}">Create a new parameterEntity</a>
+        </li>
+    </ul>
+{% endblock %}
