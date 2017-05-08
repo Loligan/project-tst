@@ -77,7 +77,8 @@ class itemEntityController extends Controller
 var_dump($categoryEntity->getId());
         $criteria = new Criteria();
         $expr = $criteria::expr();
-        $criteria->andWhere($expr->contains("params"," ff:4"));
+        $criteria->andWhere($expr->contains("params","param"));
+        $criteria->andWhere($expr->contains("params","gg"));
         $criteria->andWhere($expr->contains("categoryItem",$categoryEntity));
 //        $criteria->andWhere($expr->contains("categoryId","1"));
 //        $itemEntities = $em->getRepository('MeldonCatalogBundle:itemEntity')->findBy(array("categoryItem"=>$categoryEntity));
