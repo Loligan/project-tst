@@ -10,4 +10,9 @@ class DefaultController extends Controller
     {
         return $this->render('MeldonCatalogBundle:Default:index.html.twig');
     }
+
+    public function homePageAction()
+    {
+        return $this->render('MeldonCatalogBundle:Default:catalogMainPage.html.twig');
+    }
 }

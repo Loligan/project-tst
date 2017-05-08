@@ -18,4 +18,5 @@ meldon_catalog_image:
 
 meldon_catalog_homepage:
     path:     /
-    defaults: { _controller: MeldonCatalogBundle:Default:index }
+#    defaults: { _controller: MeldonCatalogBundle:Default:index }
+    defaults: { _controller: MeldonCatalogBundle:Default:homePage }
