@@ -13,6 +13,10 @@ class DefaultController extends Controller
 
     public function homePageAction()
     {
-        return $this->render('MeldonCatalogBundle:Default:catalogMainPage.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $categoryEntities = $em->getRepository('MeldonCatalogBundle:categoryEntity')->findAll();
+
+        return $this->render('MeldonCatalogBundle:Default:catalogMainPage.html.twig',array(  'categoryEntities' => $categoryEntities));
     }
 }

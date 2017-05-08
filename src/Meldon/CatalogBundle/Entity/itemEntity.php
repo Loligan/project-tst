@@ -29,9 +29,9 @@ class itemEntity
     private $name;
 
     /**
-     * @var array
+     * @var string
      *
-     * @ORM\Column(name="params", type="json_array")
+     * @ORM\Column(name="params", type="string")
      */
     private $params;
 
@@ -149,7 +149,7 @@ class itemEntity
     /**
      * Set params
      *
-     * @param array $params
+     * @param string $params
      *
      * @return itemEntity
      */
@@ -163,7 +163,7 @@ class itemEntity
     /**
      * Get params
      *
-     * @return array
+     * @return string
      */
     public function getParams()
     {

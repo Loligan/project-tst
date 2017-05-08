@@ -22,3 +22,8 @@ item_delete:
     path:     /{id}/delete
     defaults: { _controller: "MeldonCatalogBundle:itemEntity:delete" }
     methods:  DELETE
+
+item_table_by_category:
+  path:     /{id}/all
+  defaults: {_controller: "MeldonCatalogBundle:itemEntity:showallbycategory"}
+  methods: GET

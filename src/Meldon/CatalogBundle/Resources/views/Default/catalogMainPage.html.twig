@@ -1,4 +1,16 @@
-<a href="{{ path('category_index') }}">Category</a><br>
-<a href="{{ path('item_index') }}">Item</a><br>
-<a href="{{ path('img_index') }}">Image</a><br>
-<a href="{{ path('param_index') }}">Param</a><br>
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="ui cards" style="margin:auto;">
+    {% for categoryEntity in categoryEntities %}
+        <div class="card">
+            <div class="content">
+                <div class="header">{{ categoryEntity.name }}</div>
+                <div class="description">
+                    <a href="{{ path('item_table_by_category', {'id': categoryEntity.id}) }}">Show</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

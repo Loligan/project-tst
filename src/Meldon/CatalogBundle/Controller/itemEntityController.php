@@ -2,6 +2,8 @@
 
 namespace Meldon\CatalogBundle\Controller;
 
+use Doctrine\Common\Collections\Criteria;
+use Meldon\CatalogBundle\Entity\categoryEntity;
 use Meldon\CatalogBundle\Entity\itemEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,6 +68,26 @@ class itemEntityController extends Controller
     }
 
     /**
+     * SHOW ALL
+     */
+    public function showallbycategoryAction(Request $request,categoryEntity $categoryEntity)
+    {
+        $em = $this->getDoctrine()->getManager();
+//        var_dump($request->query->all());
+var_dump($categoryEntity->getId());
+        $criteria = new Criteria();
+        $expr = $criteria::expr();
+        $criteria->andWhere($expr->contains("params"," ff:4"));
+        $criteria->andWhere($expr->contains("categoryItem",$categoryEntity));
+//        $criteria->andWhere($expr->contains("categoryId","1"));
+//        $itemEntities = $em->getRepository('MeldonCatalogBundle:itemEntity')->findBy(array("categoryItem"=>$categoryEntity));
+        $itemEntities = $em->getRepository('MeldonCatalogBundle:itemEntity')->matching($criteria);
+        return $this->render('itementity/showAllItems.html.twig', array(
+            'itemEntities' => $itemEntities,
+        ));
+    }
+
+    /**
      * Displays a form to edit an existing itemEntity entity.
      *
      */
@@ -118,7 +140,6 @@ class itemEntityController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('item_delete', array('id' => $itemEntity->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
