@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
-
+{% block head %}
+    <script src="{{ asset('js/catalog_common_up.js') }}"></script>
+{% endblock %}
 {% block body %}
     <div class="container"></div>
 
@@ -8,58 +10,62 @@
         <div class="row">
             <div class="three wide column">
                 <div class="ui small vertical menu">
+                    <div class="ui small icon input">
+                        <input type="text" placeholder="Search small...">
+                        <i class="search icon"></i>
+                    </div>
+                    <div class="item">
+                        {% for parameter in paramsEntities %}
 
-                    <div class="item">
-                        <div class="header">Products</div>
-                        <div class="menu">
-                            <a class="item">Enterprise</a>
-                            <a class="item">Consumer</a>
-                        </div>
+                            <div class="header">{{ parameter.label }}</div>
+                            <div class="menu">
+                                {% for value in parameter.values %}
+                                <div class="ui form">
+                                <div class="inline field">
+                                        <div class="ui checkbox">
+                                            <input type="checkbox"  tabindex="0" class="hidden param" filterdata="{{ parameter.name }}={{ value }}">
+                                            <label>{{ value }}</label>
+                                        </div>
+                                </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
                     </div>
-                    <div class="item">
-                        <div class="header">CMS Solutions</div>
-                        <div class="menu">
-                            <a class="item">Rails</a>
-                            <a class="item">Python</a>
-                            <a class="item">PHP</a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="header">Hosting</div>
-                        <div class="menu">
-                            <a class="item">Shared</a>
-                            <a class="item">Dedicated</a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="header">Support</div>
-                        <div class="menu">
-                            <a class="item">E-mail Support</a>
-                            <a class="item">FAQs</a>
-                        </div>
-                    </div>
-
+                    <button class="ui basic button" id="filter">
+                        Filter
+                    </button>
                 </div>
             </div>
             <div class="nine wide column">
                 <div class="ui celled relaxed list large">
-                {% for itemEntity in itemEntities %}
+                    {% for itemEntity in itemEntities %}
                         <div class="item">
                             {#<img class="ui avatar image" src="/images/avatar/small/daniel.jpg">#}
                             <i class="image big icon"></i>
                             <div class="content">
                                 <a class="header">{{ itemEntity.name }}</a>
-                                <div class="description">Price: <b>{{ itemEntity.price }}</b> BYN</div>
-                                <div class="description">Params: <b>{{ itemEntity.params }}</b> </div>
+                                <div class="description">Price:
+                                    <b>{{ (itemEntity.price/100) |number_format(2,'.') }}</b> BYN
+                                </div>
+                                <div class="description">Params:
+                                    <label id="item#{{ itemEntity.id }}"></label>
+                                    <script>
+                                        var label = document.getElementById("item#{{ itemEntity.id }}");
+                                        label.textContent = getStringParams("{{ itemEntity.params }}");
+
+                                    </script>
+
+                                </div>
                             </div>
                         </div>
-                {% endfor %}
+                    {% endfor %}
                 </div>
             </div>
 
         </div>
 
     </div>
-
+<script src="{{ asset('js/catalog_common.js') }}"></script>
 {% endblock %}
 

@@ -29,6 +29,52 @@ class parameterEntity
     private $name;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="values", type="array", nullable=TRUE)
+     */
+    private $values;
+
+    /**
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param string $label
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="label", type="string", length=255)
+     */
+    private $label;
+
+    /**
+     * @return array
+     */
+    public function getValues()
+    {
+        return $this->values;
+    }
+
+    /**
+     * @param array $values
+     */
+    public function setValues($values)
+    {
+        $this->values = $values;
+    }
+
+    /**
      * @var string
      *
      * @ORM\Column(name="typeValue", type="string", length=255)

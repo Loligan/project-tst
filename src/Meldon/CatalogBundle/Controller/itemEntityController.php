@@ -73,18 +73,31 @@ class itemEntityController extends Controller
     public function showallbycategoryAction(Request $request,categoryEntity $categoryEntity)
     {
         $em = $this->getDoctrine()->getManager();
-//        var_dump($request->query->all());
-var_dump($categoryEntity->getId());
+
+        $query = $request->query->all();
+        var_dump($query);
+
+// Get by param******************
         $criteria = new Criteria();
         $expr = $criteria::expr();
-        $criteria->andWhere($expr->contains("params","param"));
-        $criteria->andWhere($expr->contains("params","gg"));
         $criteria->andWhere($expr->contains("categoryItem",$categoryEntity));
-//        $criteria->andWhere($expr->contains("categoryId","1"));
+        if(count($query)!=0){
+            foreach ($query as $param => $value){
+                $criteria->andWhere($expr->contains("params",'"'.$param.'":"'.(string)$value.'"'));
+            }
+        }
+        // ******************
 //        $itemEntities = $em->getRepository('MeldonCatalogBundle:itemEntity')->findBy(array("categoryItem"=>$categoryEntity));
         $itemEntities = $em->getRepository('MeldonCatalogBundle:itemEntity')->matching($criteria);
+
+//        GET ALL PARAMS
+        $em = $this->getDoctrine()->getManager();
+        $paramsEntities = $em->getRepository("MeldonCatalogBundle:parameterEntity")->findBy(array("categoryEntity"=>$categoryEntity));
+        //
+
         return $this->render('itementity/showAllItems.html.twig', array(
             'itemEntities' => $itemEntities,
+            'paramsEntities' => $paramsEntities
         ));
     }
 
