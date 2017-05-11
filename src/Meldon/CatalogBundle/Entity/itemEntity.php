@@ -104,6 +104,28 @@ class itemEntity
      */
     private $categoryItem;
 
+    /**
+     * @return ParameterItemEntity
+     */
+    public function getItemEntity()
+    {
+        return $this->itemEntity;
+    }
+
+    /**
+     * @param ParameterItemEntity $itemEntity
+     */
+    public function setItemEntity($itemEntity)
+    {
+        $this->itemEntity = $itemEntity;
+    }
+
+    /**
+     * @var ParameterItemEntity
+     * @ORM\OneToMany(targetEntity="ParameterItemEntity", mappedBy="parameter_item_entity")
+     */
+    private $itemEntity;
+
 
     /**
      * @var imageEntity
@@ -198,5 +220,6 @@ class itemEntity
     {
      return $this->name;
     }
+
 }
 

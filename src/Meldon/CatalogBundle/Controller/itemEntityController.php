@@ -3,8 +3,12 @@
 namespace Meldon\CatalogBundle\Controller;
 
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityManager;
 use Meldon\CatalogBundle\Entity\categoryEntity;
 use Meldon\CatalogBundle\Entity\itemEntity;
+use Meldon\CatalogBundle\Entity\ParameterItemEntity;
+use Meldon\CatalogBundle\MeldonCatalogBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -75,7 +79,7 @@ class itemEntityController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $query = $request->query->all();
-        var_dump($query);
+//        var_dump($query);
 
 // Get by param******************
         $criteria = new Criteria();
@@ -86,6 +90,27 @@ class itemEntityController extends Controller
                 $criteria->andWhere($expr->contains("params",'"'.$param.'":"'.(string)$value.'"'));
             }
         }
+
+//      -------------  TST =============
+
+//        $valsIds= $em->getRepository('MeldonCatalogBundle:ParameterItemEntity')->findBy(array("name" => "Operation System","isNumber" => false,"stringValue"=>"Android"));
+
+        $em2 = $this->getDoctrine()->getEntityManager();
+        $query= $em2->createQuery("select u from MeldonCatalogBundle:ParameterItemEntity  u where u.isNumber=1 and u.numberValue>=1024");
+        $valsIds = $query->getResult();
+        $ids = array();
+        foreach ($valsIds as $valsId){
+            array_push($ids,$valsId->getItemEntityId());
+        }
+//
+
+        $items = $em->getRepository("MeldonCatalogBundle:itemEntity")->findBy(array("id"=>$ids));
+        foreach ($items as $item){
+            var_dump($item->getName());
+        }
+
+//        ----------TST END-----------------
+
         // ******************
 //        $itemEntities = $em->getRepository('MeldonCatalogBundle:itemEntity')->findBy(array("categoryItem"=>$categoryEntity));
         $itemEntities = $em->getRepository('MeldonCatalogBundle:itemEntity')->matching($criteria);
@@ -99,6 +124,7 @@ class itemEntityController extends Controller
             'itemEntities' => $itemEntities,
             'paramsEntities' => $paramsEntities
         ));
+
     }
 
     /**
