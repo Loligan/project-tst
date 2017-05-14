@@ -79,7 +79,7 @@ class itemEntityController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $query = $request->query->all();
-//        var_dump($query);
+        var_dump($query);
 
 // Get by param******************
         $criteria = new Criteria();
@@ -96,7 +96,7 @@ class itemEntityController extends Controller
 //        $valsIds= $em->getRepository('MeldonCatalogBundle:ParameterItemEntity')->findBy(array("name" => "Operation System","isNumber" => false,"stringValue"=>"Android"));
 
         $em2 = $this->getDoctrine()->getEntityManager();
-        $query= $em2->createQuery("select u from MeldonCatalogBundle:ParameterItemEntity  u where u.isNumber=1 and u.numberValue>=1024");
+        $query= $em2->createQuery("select u from MeldonCatalogBundle:ParameterItemEntity  u where u.isNumber=1 and u.numberValue>=1024 order by u.id desc ");
         $valsIds = $query->getResult();
         $ids = array();
         foreach ($valsIds as $valsId){
@@ -104,9 +104,9 @@ class itemEntityController extends Controller
         }
 //
 
-        $items = $em->getRepository("MeldonCatalogBundle:itemEntity")->findBy(array("id"=>$ids));
+        $items = $em->getRepository("MeldonCatalogBundle:itemEntity")->findBy(array("id"=>$ids),array("id"=>"DESC"));
         foreach ($items as $item){
-            var_dump($item->getName());
+            print "ITEM:".$item->getId()." = ".$item->getName()."     ___________";
         }
 
 //        ----------TST END-----------------
