@@ -17,6 +17,10 @@ meldon_catalog_image:
 login:
   path: /login
   defaults: {_controller: MeldonCatalogBundle:Security:login}
+
+logout:
+    path: /logout
+
 meldon_catalog_homepage:
     path:     /
 #    defaults: { _controller: MeldonCatalogBundle:Default:index }
