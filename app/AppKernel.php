@@ -16,8 +16,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
-            new Meldon\CatalogBundle\MeldonCatalogBundle(),
-            new FOS\UserBundle\FOSUserBundle()
+            new Meldon\CatalogBundle\MeldonCatalogBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

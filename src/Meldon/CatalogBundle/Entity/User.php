@@ -2,56 +2,91 @@
 
 namespace Meldon\CatalogBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="user")
+ * User
+ *
+ * @ORM\Table(name="app_users")
+ * @ORM\Entity(repositoryClass="Meldon\CatalogBundle\Repository\UserRepository")
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
-    // ...
-
     /**
-     * @ORM\Column(type="string", length="255")
+     * @var int
      *
-     * @var string username
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $username;
+    private $id;
 
     /**
-     * @ORM\Column(type="string", length="255")
+     * @var string
      *
-     * @var string password
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
      */
-    protected $password;
+    private $username;
 
     /**
-     * @ORM\Column(type="string", length="255")
+     * @var string
      *
-     * @var string salt
+     * @ORM\Column(name="password", type="string", length=255)
      */
-    protected $salt;
+    private $password;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Role")
-     * @ORM\JoinTable(name="user_role",
-     *     joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
-     * )
+     * @var string
      *
-     * @var ArrayCollection $userRoles
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
-    protected $userRoles;
-
-    // ...
+    private $email;
 
     /**
-     * Геттер для имени пользователя.
+     * @var bool
      *
-     * @return string The username.
+     * @ORM\Column(name="isActive", type="boolean")
+     */
+    private $isActive;
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->isActive = true;
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
      */
     public function getUsername()
     {
@@ -59,19 +94,54 @@ class User implements UserInterface
     }
 
     /**
-     * Сеттер для имени пользователя.
+     * Set password
      *
-     * @param string $value The username.
+     * @param string $password
+     *
+     * @return User
      */
-    public function setUsername($value)
+    public function setPassword($password)
     {
-        $this->username = $value;
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+    public function eraseCredentials()
+    {
+    }
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
     }
 
     /**
-     * Геттер для пароля.
+     * Get password
      *
-     * @return string The password.
+     * @return string
      */
     public function getPassword()
     {
@@ -79,84 +149,63 @@ class User implements UserInterface
     }
 
     /**
-     * Сеттер для пароля.
+     * Set email
      *
-     * @param string $value The password.
+     * @param string $email
+     *
+     * @return User
      */
-    public function setPassword($value)
+    public function setEmail($email)
     {
-        $this->password = $value;
+        $this->email = $email;
+
+        return $this;
     }
 
     /**
-     * Геттер для соли к паролю.
+     * Get email
      *
-     * @return string The salt.
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return bool
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
      */
     public function getSalt()
     {
-        return $this->salt;
+        return null;
     }
-
-    /**
-     * Сеттер для соли к паролю.
-     *
-     * @param string $value The salt.
-     */
-    public function setSalt($value)
-    {
-        $this->salt = $value;
-    }
-
-    /**
-     * Геттер для ролей пользователя.
-     *
-     * @return ArrayCollection A Doctrine ArrayCollection
-     */
-    public function getUserRoles()
-    {
-        return $this->userRoles;
-    }
-
-    /**
-     * Конструктор класса User
-     */
-    public function __construct()
-    {
-        $this->posts = new ArrayCollection();
-        $this->userRoles = new ArrayCollection();
-        $this->createdAt = new \DateTime();
-    }
-
-    /**
-     * Сброс прав пользователя.
-     */
-    public function eraseCredentials()
-    {
-
-    }
-
-    /**
-     * Геттер для массива ролей.
-     *
-     * @return array An array of Role objects
-     */
-    public function getRoles()
-    {
-        return $this->getUserRoles()->toArray();
-    }
-
-    /**
-     * Сравнивает пользователя с другим пользователем и определяет
-     * один и тот же ли это человек.
-     *
-     * @param UserInterface $user The user
-     * @return boolean True if equal, false othwerwise.
-     */
-    public function equals(UserInterface $user)
-    {
-        return md5($this->getUsername()) == md5($user->getUsername());
-    }
-
-
 }
+
