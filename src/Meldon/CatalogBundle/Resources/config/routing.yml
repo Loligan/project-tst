@@ -14,8 +14,9 @@ meldon_catalog_image:
     resource: "@MeldonCatalogBundle/Resources/config/routing/imageentity.yml"
     prefix:   /img
 
-
-
+login:
+  path: /login
+  defaults: {_controller: MeldonCatalogBundle:Security:login}
 meldon_catalog_homepage:
     path:     /
 #    defaults: { _controller: MeldonCatalogBundle:Default:index }
