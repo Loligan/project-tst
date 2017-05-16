@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Parameteritementities list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Isnumber</th>
+                <th>Stringvalue</th>
+                <th>Numbervalue</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for parameterItemEntity in parameterItemEntities %}
+            <tr>
+                <td><a href="{{ path('par_item_show', { 'id': parameterItemEntity.id }) }}">{{ parameterItemEntity.id }}</a></td>
+                <td>{{ parameterItemEntity.name }}</td>
+                <td>{% if parameterItemEntity.isNumber %}Yes{% else %}No{% endif %}</td>
+                <td>{{ parameterItemEntity.stringValue }}</td>
+                <td>{{ parameterItemEntity.numberValue }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('par_item_show', { 'id': parameterItemEntity.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('par_item_edit', { 'id': parameterItemEntity.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('par_item_new') }}">Create a new parameterItemEntity</a>
+        </li>
+    </ul>
+{% endblock %}

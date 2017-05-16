@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Parameteritementity</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ parameterItemEntity.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ parameterItemEntity.name }}</td>
+            </tr>
+            <tr>
+                <th>Isnumber</th>
+                <td>{% if parameterItemEntity.isNumber %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Stringvalue</th>
+                <td>{{ parameterItemEntity.stringValue }}</td>
+            </tr>
+            <tr>
+                <th>Numbervalue</th>
+                <td>{{ parameterItemEntity.numberValue }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('par_item_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('par_item_edit', { 'id': parameterItemEntity.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

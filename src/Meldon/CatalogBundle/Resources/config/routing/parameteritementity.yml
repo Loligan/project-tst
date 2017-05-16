@@ -1,0 +1,24 @@
+par_item_index:
+    path:     /
+    defaults: { _controller: "MeldonCatalogBundle:ParameterItemEntity:index" }
+    methods:  GET
+
+par_item_show:
+    path:     /{id}/show
+    defaults: { _controller: "MeldonCatalogBundle:ParameterItemEntity:show" }
+    methods:  GET
+
+par_item_new:
+    path:     /new
+    defaults: { _controller: "MeldonCatalogBundle:ParameterItemEntity:new" }
+    methods:  [GET, POST]
+
+par_item_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MeldonCatalogBundle:ParameterItemEntity:edit" }
+    methods:  [GET, POST]
+
+par_item_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "MeldonCatalogBundle:ParameterItemEntity:delete" }
+    methods:  DELETE
