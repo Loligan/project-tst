@@ -16,15 +16,3 @@ security:
                 login_path: login
                 check_path: login
             logout: true
-
-#    firewalls:
-#        main:
-#            pattern:    ^/
-#            http_basic: ~
-#            provider: our_db_provider
-#        dev:
-#            pattern: ^/(_(profiler|wdt)|css|images|js)/
-#            security: false
-#
-#        default:
-#            anonymous: ~
