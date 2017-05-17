@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * User
  *
  * @ORM\Table(name="app_users")
- * @ORM\Entity(repositoryClass="Meldon\CatalogBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="Meldon\CatalogBundle\Repository\userRepository")
  */
 class User implements UserInterface, \Serializable
 {

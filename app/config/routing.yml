@@ -5,3 +5,8 @@ meldon_catalog:
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+user_new:
+    path:     /register
+    defaults: { _controller: "MeldonCatalogBundle:User:new" }
+    methods:  [GET, POST]

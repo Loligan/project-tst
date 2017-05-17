@@ -14,6 +14,16 @@ meldon_catalog_image:
     resource: "@MeldonCatalogBundle/Resources/config/routing/imageentity.yml"
     prefix:   /img
 
+meldon_user:
+    resource: "@MeldonCatalogBundle/Resources/config/routing/user.yml"
+    prefix: /user
+
+
+user_show:
+    path:     /show/{id}
+    defaults: { _controller: "MeldonCatalogBundle:User:show" }
+    methods:  GET
+
 login:
   path: /login
   defaults: {_controller: MeldonCatalogBundle:Security:login}
